@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>液态金属模型训练平台</title>
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/index.css"/>
+</head>
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="https://www.jq22.com/jquery/echarts-4.2.1.min.js"></script>
+{#<script src="../static/js/index.js"></script>#}
+<script src="../static/js/train_platform.js"></script>
+<script src="../static/js/map/shandong.js"></script>
+{#跨站伪造#}
+ <script>
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+        })
+ </script>
+<style>
+    .img-model{
+        text-align: center;
+        width: 60%;
+         position: relative;
+         margin-top: 15px;
+        padding: 1px;
+        border: 5px solid #f254e2;
+        border-radius: 21px;
+
+    }
+
+    h1 {
+    text-shadow: 5px 5px 5px #b3ff00;
+    text-align:center;
+    border-style:outset;
+    border:5px solid #54e0f2;
+    color: #00ffe1;
+
+}
+    .bottom{
+    position: relative;
+    margin-top: 15px;
+    padding: 10px;
+    border: 5px solid #54dcf2;
+    height: 200px;
+    background: #a5b1ad;
+    border-radius: 32px;
+    }
+
+    .bottom-platform-right{
+            position: relative;
+             margin-top: 15px;
+             padding: 10px;
+             border: 1px solid #54dcf2;
+            width: 70%;
+            float: right;
+            height: 150px;
+            background: white;
+            border-radius: 20px;
+            color: #54dcf2;
+            font-size: 20px;
+        overflow: scroll;
+    }
+
+        .bottom-platform-left{
+            position: relative;
+            margin-top: 15px;
+            padding: 10px;
+            width: 30%;
+            float: left;
+            height: 150px;
+            color: #00ffff;
+            font-size: 20px;
+    }
+
+
+    .model_wind{
+    border: 5px solid #54dcf2;
+    height: 200px;
+    width: 18%;
+    {#background-color: white;#}
+    position: absolute;
+    top: 145px;
+    right: 30px;
+    overflow: scroll;
+    {#overflow-y:visible;#}
+    overflow-x: visible;
+    color: #54dcf2;
+    font-size: 16px;
+
+    border-radius: 10px
+    }
+
+    .button_press {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+    .button_press:hover {background-color: #3e8e41}
+
+.button_press:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.robot{
+    width: 41%;
+    position: absolute;
+    top:100px
+}
+
+#select_model{
+    position: absolute;
+    border: 5px solid #54dcf2;
+    bottom: 90px;
+    right: 150px;
+    text-align: center;
+    font-size: medium;
+    color: #337ab7;
+}
+
+</style>
+<body>
+<div class="header">
+    <!--头部-->
+    <div>
+        液态金属计算平台
+    </div>
+    <div style="font-size: 15px">
+        Liquid metal computing platform
+    </div>
+
+    <a href="javascript:;" class="a-access">
+        <button class="button type1" onclick="window.location.href = '/'">
+    		计算
+    	</button>
+    </a>
+</div>
+
+<div class="main clearfix" >
+
+
+   <h1>液态金属计算模型</h1>
+
+
+    <div style="text-align: center">
+        <img src="../static/架构.png" class = "img-model">
+
+    </div>
+
+    <div id = 'select_model' class = 'select-model'>
+        <p style="font-size: large ; color:#54dcf2"> 选择训练的模型</p>
+        <select id="select-model">
+            <option value="density">密度</option>
+            <option value="viscosity">粘度</option>
+            <option value="solidity">硬度</option>
+            <option value="conductivity">电导率</option>
+            <option value="heat_conductivity">热导率</option>
+        </select>
+    </div>
+
+    <div class="bottom">
+
+        <div class="bottom-platform-left">
+            <p id="data_num">训练数据量：</p>
+             <p id="train_time">训练总耗时：</p>
+             <p id="epoch">迭代总次数：</p>
+        </div>
+
+        <div class = "bottom-platform-right">
+            <p id = "test_result">
+                暂时无任务
+            </p>
+        </div>
+
+
+    </div>
+
+    <div class="button_bottom" style="text-align: center">
+        <div>
+            <button id="test" class="button_press">模型评估</button>
+            <button id="train" class="button_press">训练</button>
+            <button id="fin_train" class="button_press">结束</button>
+            <button id="backup" class="button_press">备份</button>
+        </div>
+
+
+
+    </div>
+
+
+{# 浮动窗口 #}
+    <div id="float_wind" class="model_wind">
+        <h2>历史模型：</h2>
+        <p>======</p>
+        {% for i in back_list %}
+            <p id="{{ i }}" class="model_history">{{ i }}</p>
+        {% endfor %}
+    </div>
+
+
+
+</div>
+
+    <img src="../static/robot.png" class="robot">
+</body>
+</html>

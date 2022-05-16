@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>液态金属计算平台</title>
+    <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/index.css"/>
+
+
+
+
+
+</head>
+<body>
+
+<style>
+
+
+h1
+{
+    text-shadow: 5px 5px 5px #b3ff00;
+    text-align:center;
+    border-style:outset;
+    border:5px solid #54e0f2;
+    color: #00ffe1;
+
+}
+
+
+#input_button{
+
+    text-align:center;
+
+}
+
+#input_num{
+    	margin-top:50px;
+	margin-right:20px;
+	margin-left:20px;
+    border:3px solid #54dcf2;
+
+}
+
+.newspaper
+{
+	-moz-column-count:3; /* Firefox */
+	-webkit-column-count:3; /* Safari and Chrome */
+	column-count:3;
+}
+</style>
+
+
+
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="https://www.jq22.com/jquery/echarts-4.2.1.min.js"></script>
+<script src="../static/js/index.js"></script>
+
+
+{#跨站伪造#}
+ <script>
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+        })
+ </script>
+
+
+<script>
+
+
+
+</script>
+<!--头部-->
+<div class="header">
+    <div>
+        液态金属计算平台
+    </div>
+    <div style="font-size: 15px">
+        Liquid metal computing platform
+    </div>
+
+    <a href="javascript:;" class="a-access">
+        <button class="button type1" onclick="window.location.replace('/train')">
+    		训练
+    	</button>
+    </a>
+</div>
+
+<!--主体-->
+<div class="main clearfix">
+    <div class="main-left">
+        <div class="border-container">
+            <div class="name-title">
+                预测结果展示：
+            </div>
+            <div id="radar"></div>
+            <span class="top-left border-span"></span>
+            <span class="top-right border-span"></span>
+            <span class="bottom-left border-span"></span>
+            <span class="bottom-right border-span"></span>
+        </div>
+
+
+
+        <div class="border-container">
+            <div class="name-title">
+               ===
+            </div>
+
+
+
+            <div id = "predict_num">
+                <hr>
+                <p id = "density" class="predict_class"> <br>密度：</p>>
+                <p id = "solidity"  class="predict_class">硬度：</p>>
+                <p id = "viscosity"  class="predict_class">粘度：</p>>
+                <p id = "heat_conductivitys"  class="predict_class">热导率：</p>>
+                <p id = "conductivity"  class="predict_class">电导率：</p>>
+            </div>
+{#            <div id="courserate"></div>#}
+{##}
+{##}
+{##}
+{#            <ul class="three-pie clearfix">#}
+{#                <li>#}
+{#                    <div id="sexrate"></div>#}
+{#                    <div></div>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <div id="householdrate"></div>#}
+{#                    <div></div>#}
+{#                </li>#}
+{#            </ul>#}
+
+
+
+
+            <span class="top-left border-span"></span>
+            <span class="top-right border-span"></span>
+            <span class="bottom-left border-span"></span>
+            <span class="bottom-right border-span"></span>
+        </div>
+    </div>
+    <div class="main-middle">
+
+
+
+
+{#地图的框#}
+<div class="border-container">
+
+<div id = 'tittl_input'>
+   <h1>液态金属属性预测</h1>
+</div>
+
+
+{#            <div id="mapadd"></div>#}
+            
+{#输入框#}
+<div id = "input_num" class="newspaper">
+
+ <div class="input-group flex-nowrap" >
+
+  <input type="text"  class="form-control"  id="Mg" placeholder="Mg" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+<div class="input-group flex-nowrap" >
+
+  <input type="text" class="form-control" id="Al" placeholder="Al" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+ <div class="input-group flex-nowrap">
+
+  <input type="text" class="form-control"  id="Fe" placeholder="Fe" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+<div class="input-group flex-nowrap">
+
+  <input type="text" class="form-control"  id="Co" placeholder="Co" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+<div class="input-group flex-nowrap" >
+
+  <input type="text" class="form-control" id="Ni" placeholder="Ni" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+ <div class="input-group flex-nowrap">
+
+  <input type="text" class="form-control"  id="Cu" placeholder="Cu" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+ <div class="input-group flex-nowrap">
+
+  <input type="text" class="form-control"  id="Zn" placeholder="Zn" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+ <div class="input-group flex-nowrap">
+
+  <input type="text" class="form-control"  id="Ga" placeholder="Ga" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+ <div class="input-group flex-nowrap">
+
+  <input type="text" class="form-control"  id="Ag" placeholder="Ag" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+ <div class="input-group flex-nowrap">
+
+  <input type="text" class="form-control"  id="In" placeholder="In" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+ <div class="input-group flex-nowrap">
+
+  <input type="text" class="form-control"  id="Sn" placeholder="Sn" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+
+ <div class="input-group flex-nowrap" >
+
+  <input type="text" class="form-control" id="Bi" placeholder="Bi" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+
+
+</div>
+
+
+<div id="input_button" type="center">
+    <a href="javascript:;" class="a-access">
+
+        <button class="button type1" id="button_predict">
+    		预测
+    	</button>
+
+    </a>
+</div>
+            <span class="top-left border-span"></span>
+            <span class="top-right border-span"></span>
+            <span class="bottom-left border-span"></span>
+            <span class="bottom-right border-span"></span>
+        </div>
+
+
+
+        <div class="border-container">
+            <ul class="teacher-pie clearfix">
+
+                <li>
+                    <div class="name-title">
+                        =======
+                    </div>
+{#                    <div id="courserate"></div>#}
+                </li>
+
+                <li>
+                    <div class="name-title">
+                       =======
+                    </div>
+{#                    <div id="professionrate"></div>#}
+                </li>
+
+            </ul>
+
+            <div class="name-title">
+                数据：
+            </div>
+
+            <div id = "table">
+
+                <table class="table table-kingdargen">
+               <thead>
+                   <tr>
+                       {% for i in item_list %}
+                       <th>{{ i }}</th>
+                        {% endfor %}
+
+                   </tr>
+               </thead>
+               <tbody>
+
+               {%  for i in views_list %}
+                   <tr>
+                       <td>{{ i.检测编号 }}</td>
+                       <td>{{ i.Mg }}</td>
+                       <td>{{ i.Al }}</td>
+                       <td>{{ i.Fe }}</td>
+                       <td>{{ i.Co }}</td>
+
+                       <td>{{ i.Ni }}</td>
+                       <td>{{ i.Cu }}</td>
+                       <td>{{ i.Zn }}</td>
+                       <td>{{ i.Ga }}</td>
+
+                       <td>{{ i.Ag }}</td>
+                       <td>{{ i.In }}</td>
+                       <td>{{ i.Sn }}</td>
+                       <td>{{ i.Bi }}</td>
+
+                       <td>{{ i.密度}}</td>
+                       <td>{{ i.电导率 }}</td>
+                       <td>{{ i.硬度 }}</td>
+                       <td>{{ i.粘度 }}</td>
+                       <td>{{ i.热导率 }}</td>
+
+                   </tr>
+               </tbody>
+                {% endfor %}
+           </table>
+
+            </div>
+
+
+            <span class="top-left border-span"></span>
+            <span class="top-right border-span"></span>
+            <span class="bottom-left border-span"></span>
+            <span class="bottom-right border-span"></span>
+        </div>
+    </div>
+    <div class="main-right">
+
+        <div class="border-container">
+            <div class="name-title">
+                合金材料组分比例：
+            </div>
+
+
+
+            <div id="professionrate"></div>
+
+
+            <span class="top-left border-span"></span>
+            <span class="top-right border-span"></span>
+            <span class="bottom-left border-span"></span>
+            <span class="bottom-right border-span"></span>
+        </div>
+
+
+        <div class="border-container">
+            <div class="name-title">
+             	柱状比例变化图
+            </div>
+{#             <div id="graduateyear"></div>#}
+
+            <div id = "changedetail"></div>
+            <span class="top-left border-span"></span>
+            <span class="top-right border-span"></span>
+            <span class="bottom-left border-span"></span>
+            <span class="bottom-right border-span"></span>
+        </div>
+
+            <span class="top-left border-span"></span>
+            <span class="top-right border-span"></span>
+            <span class="bottom-left border-span"></span>
+            <span class="bottom-right border-span"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
